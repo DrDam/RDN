@@ -20,7 +20,8 @@ void out_monde(Univers monde) // affichage graphique
 
     ecran.clear(sf::Color::Black); // on efface le contenu de la fenetre
 
-    for ( unsigned int i=0;i<population.size();++i) // pour chaque organisme
+    #pragma omp parallel for
+    for ( int i=0;i<population.size();++i) // pour chaque organisme
             {   // on trace un "cercle de 5 pixels
                 sf::CircleShape myCircle = sf::CircleShape(5);
                 // de couleur verte
@@ -40,7 +41,8 @@ void out_console(Univers monde, int cycle) // débug des réseau en console
 
     std::vector<Organisme*> population = monde.getAllOrganisme(); // on récupère tout les organismes
 
-    for ( unsigned int i(0);i<population.size();++i) // pour chaque organisme
+    #pragma omp parallel for
+    for ( int i =0;i<population.size();++i) // pour chaque organisme
         {
             cout <<"organisme" << i <<" :"<<endl;
             Reseau * reseau = population[i]->getSNC(); // on récupère sont RdN

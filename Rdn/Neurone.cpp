@@ -27,10 +27,12 @@ void Neurone::setstatic( int setseuil, int setbas, int settaux, int setpss) {
 //=> destructeur ( un neurone "disparait" s'il n'a plus de synapse amont ou aval => a spécifier clairement)
     //=> détruit les synapses restantes
 Neurone::~Neurone() {
-    for( unsigned int i(0);i<T_amont.size();++i){ // pour toutes les synapses Amont
+    #pragma omp parallel for
+    for( unsigned int i=0;i<T_amont.size();++i){ // pour toutes les synapses Amont
 		 T_amont[i]->detruit( false ) ; // on les détruit en précisant que l'ordre vient du neurone "aval"
 		}
-	for( unsigned int i(0);i<T_aval.size();++i){ // pour toutes les synapses aval
+
+	for( unsigned int i=0;i<T_aval.size();++i){ // pour toutes les synapses aval
 		 T_aval[i]->detruit( true ) ;// on les détruit en précisant que l'ordre vient du neurone "amont"
 		} }
 

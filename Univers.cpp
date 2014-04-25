@@ -1,10 +1,12 @@
 #include <vector>
 #include "Poisson.h"
 #include "Univers.h"
+#include <omp.h>
 
 // créer l'univers à partir de rien
 Univers::Univers(int nb_org,int *T_reseau )
 {
+    #pragma omp parallel for
     for(int i=0;i<nb_org;i++)
     {
        population.push_back( new Poisson(T_reseau,600) );
@@ -16,7 +18,8 @@ Univers::Univers( char fichier ) {   }
 
 void Univers::run() {
     //chaque organisme "vie"
-    for ( unsigned int i(0);i<population.size();++i)
+    #pragma omp parallel for
+    for ( unsigned int i=0;i<population.size();++i)
         {
             population[i]->run();
         }

@@ -4,7 +4,8 @@
 #include "Reseau.h"
 #include "../lib/alea/alea.h"
 #include <cstddef>
-
+#include <iostream>
+#include <omp.h>
 
 Reseau::Reseau( char URL ) { }
 
@@ -22,11 +23,15 @@ int nombre_aleat;
 
 while(syncrees<nb_Synapse)
 {
+
     for ( int j=0;j<nb_Neurone;j++) //pour chaque neurone
         {
+
             //nombre_aleat = rand()%(nb_Neurone-1); // on tire un premier neurone aléatoirement
             nombre_aleat = alea(nb_Neurone-1);
-            while ( nombre_aleat == j ){nombre_aleat = alea(nb_Neurone-1);} //rand()%(nb_Neurone-1);}
+
+
+            while ( nombre_aleat == j ){nombre_aleat = alea(nb_Neurone-1);    } //rand()%(nb_Neurone-1);}
 
             int type = alea(9); //rand()%(9); // on prend un chiffre entre 0 et 9 si <5 => -1 si >5 =>+1
             if (type<5)type=-1;
