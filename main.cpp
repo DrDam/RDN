@@ -1,33 +1,32 @@
 #include <iostream>
 #include "Univers.h"
 #include "Rdn/Neurone.h"
-#include "time.h"
 #include <fstream>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
-#include <time.h> //=> pour le noyau de la fonction aléatoire
 #include <cstdlib>
 #include <omp.h>
+
+using namespace std;
 
 // on crée une fenetre
 sf::RenderWindow ecran;
 
-using namespace std;
-
-void out_monde(Univers monde) // affichage graphique
+// affichage graphique
+void out_monde(Univers monde)
 {
     std::vector<Organisme*> population = monde.getAllOrganisme(); // on récupère tout les organismes
 
     ecran.clear(sf::Color::Black); // on efface le contenu de la fenetre
 
-    #pragma omp parallel for
-    for ( int i=0;i<population.size();++i) // pour chaque organisme
+    // Trouver moyen de threader ça aussi !
+    for ( unsigned int i=0;i<population.size();++i) // pour chaque organisme
             {   // on trace un "cercle de 5 pixels
                 sf::CircleShape myCircle = sf::CircleShape(5);
                 // de couleur verte
                 myCircle.setFillColor(sf::Color(0, 255, 100));
                 // positionné
-                myCircle.setPosition(10, 50);
+                myCircle.setPosition(population[i]->getX(), population[i]->getY());
 
                 ecran.draw(myCircle);
             }
@@ -35,14 +34,15 @@ void out_monde(Univers monde) // affichage graphique
     ecran.display(); // on affiche le tout
 }
 
-void out_console(Univers monde, int cycle) // débug des réseau en console
+// débug des réseau en console
+void out_console(Univers monde, int cycle)
 {
     std::cout <<  "TU = "<< cycle << std::endl; // on affiche le "cycle en cours"
 
     std::vector<Organisme*> population = monde.getAllOrganisme(); // on récupère tout les organismes
 
     #pragma omp parallel for
-    for ( int i =0;i<population.size();++i) // pour chaque organisme
+    for ( unsigned int i =0;i<population.size();++i) // pour chaque organisme
         {
             cout <<"organisme" << i <<" :"<<endl;
             Reseau * reseau = population[i]->getSNC(); // on récupère sont RdN
@@ -67,7 +67,6 @@ void out_console(Univers monde, int cycle) // débug des réseau en console
 int main()
 {
     // initialisation des constantes du programme
-    std::srand(time(NULL)); // racine pour les aléatoires
 
     // param des neurones
     int setseuil = 100;
@@ -81,10 +80,14 @@ int main()
 
     // param de l'univers
     int nbcycle = -1; // => nb cycle infinie
+    int nborg = 10 ;
+    int nb_thread = 4;
+
+    // Variable de programme
+    int cycle = 0;
     bool end = true;
     bool pause = false;
     bool console = false;
-
 
     // choix du fonctionnement : paramètres personalisés ?
     int test = 0;
@@ -109,14 +112,21 @@ int main()
             cout << "nombre de sortie de chaque neurone ( >0, exemple 3) " <<endl;
                 cin >> nbsyn;
         cout << endl<< "parametre de fonctionnement  : " << endl;
+            cout << "nombre d'organisme (>0, exemple 10) " <<endl;
+                cin >> nborg;
             cout << "nombre de cycle du programme(>0, exemple 50, -1 si infini) " <<endl;
                 cin >> nbcycle;
+            cout << "nombre de thread du programme(>0, exemple "<< omp_get_num_procs() <<") " <<endl;
+                cin >> nb_thread;
     }
+
+    // set nb thread
+    omp_set_num_threads(nb_thread);
 
     // met à jour les statics des neurones
     Neurone::setstatic(setseuil,setbase,setstab,setpps);
 
-    //cout << "Début du programme" << endl;
+    cout << "Début du programme" << endl << endl;
 
     //instructions
     cout << "Pour les touches, veuillez selectionner la fenetre graphique" << endl;
@@ -131,11 +141,8 @@ int main()
     //initialisation du SNC des organismes
     int Tab_SNC[] = { nbneu , nbsyn};
 
-    //cout << endl;
-
     //création de l'univers
-    Univers monde(1, Tab_SNC) ;
-    //cout << endl;
+    Univers monde(nborg, Tab_SNC) ;
 
     //attendre que l'utilisateur "lance le programme" => disparaitra avec le debug en GUI
     cout << endl << endl << "appuyer sur ''return'' pour commencer" << endl;
@@ -143,11 +150,10 @@ int main()
         while(getchar()) {  break; }
 
     //lancement du jeu
-    int cycle = 0;
     while( end )
         {
-        // gestion des évenements
 
+        // gestion des évenements
         sf::Event Event;
 
         while(ecran.pollEvent(Event)) // Tant qu'il y a un évènement, on le récupère
@@ -187,9 +193,9 @@ int main()
             if( nbcycle != -1 && cycle > nbcycle ) end = false  ;
         }
 
-    //cout << "Fin du programme" << endl;
-    //cout << endl << endl << "Fin !!! ( appuyer sur ''return'' )" << endl;
-    //while(getchar()) {  break; }
+    cout << "Fin du programme" << endl;
+    cout << endl << endl << "Fin !!! ( appuyer sur ''return'' )" << endl;
+    while(getchar()) {  break; }
 
  return 0;
 

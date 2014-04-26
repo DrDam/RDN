@@ -18,7 +18,7 @@ Univers::Univers( char fichier ) {   }
 
 void Univers::run() {
     //chaque organisme "vie"
-    #pragma omp parallel for
+    #pragma omp parallel for schedule(dynamic,2)
     for ( unsigned int i=0;i<population.size();++i)
         {
             population[i]->run();
