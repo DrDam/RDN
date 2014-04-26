@@ -4,7 +4,8 @@ RDN
 Un projet de réseau de neuronne 
 
 
-Lib nécessaires : 
+
+Lib nécessaire à la compilation : 
 
 C++ SFML 2.1
 
