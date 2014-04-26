@@ -1,7 +1,7 @@
 RDN
 ===
 
-Un projet de réseau de neuronne 
+Un projet de Réseau de neurones ( document d'explication dans le dossier doc)
 
 
 
