@@ -13,8 +13,10 @@ using namespace std;
 sf::RenderWindow ecran;
 
 // affichage graphique
-void out_monde(Univers monde)
+void out_monde(Univers monde,int cycle)
 {
+    std::string cycles = std::to_string(cycle);
+
     std::vector<Organisme*> population = monde.getAllOrganisme(); // on récupère tout les organismes
 
     ecran.clear(sf::Color::Black); // on efface le contenu de la fenetre
@@ -33,6 +35,8 @@ void out_monde(Univers monde)
 
     ecran.display(); // on affiche le tout
 }
+
+
 
 // débug des réseau en console
 void out_console(Univers monde, int cycle)
@@ -184,7 +188,7 @@ int main()
             if(console) out_console(monde,cycle);
 
             //affichage du graphisme
-            out_monde(monde);
+            out_monde(monde,cycle);
 
             //incrémente le cycle
             cycle++;

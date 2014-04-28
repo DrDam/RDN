@@ -13,7 +13,7 @@ Reseau::Reseau( char URL ) { }
 Reseau::Reseau( int nb_Neurone, int nb_Synapse, int nb_Input, int nb_Output ) {
 
    // création des neurone
-    for ( int i(0);i<nb_Neurone;++i) {
+    for ( int i = 0;i<nb_Neurone;++i) {
             T_Neurones.push_back( new Neurone(i) );
         }
 
@@ -23,7 +23,6 @@ int nombre_aleat;
 
 while(syncrees<nb_Synapse)
 {
-
     for ( int j=0;j<nb_Neurone;j++) //pour chaque neurone
         {
 
@@ -112,12 +111,14 @@ void Reseau::run() {
             integration() ;
 
             //run des synapses
+            #pragma omp parallel for
             for ( unsigned int i=0;i<T_Synapses.size();i++)
             {
                 T_Synapses[i]->run();
             }
 
              //pour les neurones
+             #pragma omp parallel for
             for ( unsigned int i=0;i<T_Neurones.size();i++)
             {
                 T_Neurones[i]->run();

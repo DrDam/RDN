@@ -31,7 +31,7 @@ Neurone::~Neurone() {
     for( unsigned int i=0;i<T_amont.size();++i){ // pour toutes les synapses Amont
 		 T_amont[i]->detruit( false ) ; // on les détruit en précisant que l'ordre vient du neurone "aval"
 		}
-
+    #pragma omp parallel for
 	for( unsigned int i=0;i<T_aval.size();++i){ // pour toutes les synapses aval
 		 T_aval[i]->detruit( true ) ;// on les détruit en précisant que l'ordre vient du neurone "amont"
 		} }
@@ -96,6 +96,7 @@ void Neurone::run() {
     stabilise() ; // abaise le potentiel
     if (m_potentiel>m_seuil&&m_actif==1)// si le potentiel est toujours supérieur au seuil et le neurone est "actif"
         {
+      #pragma omp parallel for
 	  for( unsigned int i=0;i<T_aval.size();i++){ // on transmet le PA à toutes les synapses avals
             T_aval[i]->transmet(1) ;
             }
