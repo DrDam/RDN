@@ -7,9 +7,9 @@ Un projet de Réseau de neurones ( document d'explication dans le dossier doc)
 
 Lib nécessaire à la compilation : 
 
-C++ SFML 2.1
+SFML 2.1 ( C++ ) pour la partie Graphique
 
-C++ Boost
+Boost ( C++ ) pour le générateur de nombre aléatoire
 
-C++ openMP
+openMP ( C++ ) pour le multithreading
 
