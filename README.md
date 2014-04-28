@@ -13,3 +13,5 @@ Boost ( C++ ) pour le générateur de nombre aléatoire
 
 openMP ( C++ ) pour le multithreading
 
+
+Projet sous licence GNU GPL v3
