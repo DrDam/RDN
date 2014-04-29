@@ -21,6 +21,19 @@ void out_monde(Univers monde,int cycle)
 
     ecran.clear(sf::Color::Black); // on efface le contenu de la fenetre
 
+    // Affichage du temps
+
+    sf::Font font;
+    font.loadFromFile("./Arial.ttf");
+
+    sf::Text text;
+    text.setFont(font); // font est un sf::Font
+    text.setString("Tu : " + cycles);
+    text.setCharacterSize(24); // exprimée en pixels, pas en points !
+    text.setColor(sf::Color::White);
+    text.setStyle(sf::Text::Bold | sf::Text::Underlined);
+    ecran.draw(text);
+
     // Trouver moyen de threader ça aussi !
     for ( unsigned int i=0;i<population.size();++i) // pour chaque organisme
             {   // on trace un "cercle de 5 pixels
