@@ -15,3 +15,6 @@ openMP ( C++ ) pour le multithreading
 
 
 Projet sous licence GNU GPL v3
+
+
+Note : la version nigthlyBuild est pour un linux/intel-64bits
