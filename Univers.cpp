@@ -21,7 +21,11 @@ void Univers::run() {
     #pragma omp parallel for
     for ( unsigned int i=0;i<population.size();++i)
         {
-            population[i]->run();
+            if(population[i]->getPointVie() > 0)
+            {
+             population[i]->run();
+            }
+
         }
 }
 

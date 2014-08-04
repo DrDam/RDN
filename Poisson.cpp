@@ -21,6 +21,11 @@ void Poisson::sentir()// interprete l'univers
 } ;
 void Poisson::agir() // agit sur/avec l'univers
 {
+    // en attente
+    int old_x = x;
+    int old_y = y;
+
+    // en attente d'organes moteurs
     for(unsigned int i=0 ; i<SNC->T_Output.size() ; i++)  // pour chaque sortie
         {
             if( SNC->T_Output[i]->isSignal() ) // si le neurone transmet qqch
@@ -46,7 +51,12 @@ void Poisson::agir() // agit sur/avec l'univers
                     x -= 10;
                     if(x<0) x = TailleX-x;
                     }
+
             }
+        }
+
+        if(old_x != x || old_y != y) {
+            add_life(50);
         }
 } ;
 

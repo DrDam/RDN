@@ -9,6 +9,7 @@ class Poisson : public Organisme
 
 public:
     Poisson(int *T_reseau , int max_ecran);
+    ~Poisson();
     void sentir() ; // interprete l'univers => methode virtuel d'organisme
     void agir() ; // agit sur/avec l'univers  => methode virtuel d'organisme
 };

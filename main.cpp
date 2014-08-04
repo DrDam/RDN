@@ -36,7 +36,10 @@ void out_monde(Univers monde,int cycle)
 
     // Trouver moyen de threader ça aussi !
     for ( unsigned int i=0;i<population.size();++i) // pour chaque organisme
-            {   // on trace un "cercle de 5 pixels
+            {
+                if(population[i]->getPointVie() > 0)
+                {
+                 // on trace un "cercle de 5 pixels
                 sf::CircleShape myCircle = sf::CircleShape(5);
                 // de couleur verte
                 myCircle.setFillColor(sf::Color(0, 255, 100));
@@ -44,6 +47,7 @@ void out_monde(Univers monde,int cycle)
                 myCircle.setPosition(population[i]->getX(), population[i]->getY());
 
                 ecran.draw(myCircle);
+                }
             }
 
     ecran.display(); // on affiche le tout
