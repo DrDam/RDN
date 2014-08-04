@@ -16,3 +16,4 @@ Projet sous licence GNU GPL v3
 
 
 Note : la version nigthlyBuild est pour un linux/intel-64bits
+De préférence lancer l'exécutable par la console afin d'avoir accès à la conf.
