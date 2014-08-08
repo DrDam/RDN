@@ -1,6 +1,5 @@
 #include <iostream>
 #include "Univers.h"
-#include "Rdn/Neurone.h"
 #include <fstream>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>

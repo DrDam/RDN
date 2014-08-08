@@ -1,6 +1,6 @@
 #include <vector>
 #include "Organisme.h"
-#include "Rdn/Reseau.h"
+#include "rdn/Reseau.h"
 
 Organisme::Organisme( int *T_reseau, int in, int out ) {
 

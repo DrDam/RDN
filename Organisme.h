@@ -1,7 +1,7 @@
 #ifndef ORGANISME_H_INCLUDED
 #define ORGANISME_H_INCLUDED
 #include <vector>
-#include "Rdn/Reseau.h"
+#include "rdn/Reseau.h"
 
 class Organisme {
 

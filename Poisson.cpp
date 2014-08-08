@@ -1,8 +1,8 @@
 #include <vector>
 #include "Organisme.h"
-#include "Rdn/Reseau.h"
+#include "rdn/Reseau.h"
 #include "Poisson.h"
-#include "lib/alea/alea.h"
+#include "alea/alea.h"
 
 Poisson::Poisson(int *T_reseau, int max_ecran ):  Organisme::Organisme(T_reseau,50,4)
 {
